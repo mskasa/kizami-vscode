@@ -119,8 +119,8 @@ go build -o ~/go/bin/kizami .
 ## バックログ
 
 ### 優先度：高
-- [ ] `kizami` バイナリが見つからない場合の明確なエラー表示とインストール案内リンク
-- [ ] ファイルの右クリックコンテキストメニュー: "Find related kizami documents"
+- [x] `kizami` バイナリが見つからない場合の明確なエラー表示とインストール案内リンク
+- [x] ファイルの右クリックコンテキストメニュー: "Find related kizami documents"
 
 ### 優先度：中
 - [ ] TreeView タイトルバーの更新ボタン

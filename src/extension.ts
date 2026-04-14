@@ -38,6 +38,27 @@ export function activate(context: vscode.ExtensionContext): void {
       provider.refresh(editor?.document.uri.fsPath);
     })
   );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "kizami.openInstallGuide",
+      () => {
+        vscode.env.openExternal(
+          vscode.Uri.parse("https://github.com/mskasa/kizami#installation")
+        );
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "kizami.findRelated",
+      (uri: vscode.Uri) => {
+        provider.refresh(uri.fsPath);
+        vscode.commands.executeCommand("kizamiDocuments.focus");
+      }
+    )
+  );
 }
 
 export function deactivate(): void {}

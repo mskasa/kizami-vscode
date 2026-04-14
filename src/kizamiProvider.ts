@@ -29,10 +29,13 @@ export class DocumentItem extends vscode.TreeItem {
 
 // Placeholder item shown when no documents are found or on error.
 class MessageItem extends vscode.TreeItem {
-  constructor(message: string, iconId = "info") {
+  constructor(message: string, iconId = "info", command?: vscode.Command) {
     super(message, vscode.TreeItemCollapsibleState.None);
     this.iconPath = new vscode.ThemeIcon(iconId);
     this.contextValue = "kizamiMessage";
+    if (command) {
+      this.command = command;
+    }
   }
 }
 
@@ -170,6 +173,21 @@ export class KizamiDocumentsProvider
         { cwd: workspaceRoot },
         (error, stdout, stderr) => {
           if (error) {
+            const isNotFound =
+              (error as NodeJS.ErrnoException).code === "ENOENT";
+            if (isNotFound) {
+              resolve([
+                new MessageItem(
+                  "kizami binary not found — click to install",
+                  "warning",
+                  {
+                    command: "kizami.openInstallGuide",
+                    title: "Open Install Guide",
+                  }
+                ),
+              ]);
+              return;
+            }
             const msg = stderr?.trim() || error.message;
             resolve([new MessageItem(`Error: ${msg}`, "error")]);
             return;

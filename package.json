@@ -33,6 +33,27 @@
         }
       ]
     },
+    "commands": [
+      {
+        "command": "kizami.findRelated",
+        "title": "Find Related kizami Documents",
+        "category": "kizami"
+      },
+      {
+        "command": "kizami.openInstallGuide",
+        "title": "Open kizami Install Guide",
+        "category": "kizami"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "kizami.findRelated",
+          "when": "kizami.active && resourceScheme == file && !explorerResourceIsFolder",
+          "group": "navigation"
+        }
+      ]
+    },
     "configuration": {
       "title": "kizami",
       "properties": {
