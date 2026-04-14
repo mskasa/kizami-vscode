@@ -1,0 +1,62 @@
+{
+  "name": "kizami-vscode",
+  "displayName": "kizami",
+  "description": "Living documentation sidebar for kizami — shows related ADRs and design docs for the current file",
+  "version": "0.1.0",
+  "publisher": "mskasa",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "workspaceContains:kizami.toml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "kizami",
+          "title": "kizami",
+          "icon": "media/kizami.svg"
+        }
+      ]
+    },
+    "views": {
+      "kizami": [
+        {
+          "id": "kizamiDocuments",
+          "name": "Related Documents",
+          "when": "kizami.active"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "kizami",
+      "properties": {
+        "kizami.binaryPath": {
+          "type": "string",
+          "default": "kizami",
+          "description": "Path to the kizami binary. Defaults to 'kizami' (must be in PATH)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0"
+  }
+}
