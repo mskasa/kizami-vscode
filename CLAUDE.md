@@ -119,8 +119,8 @@ go build -o ~/go/bin/kizami .
 ## Backlog
 
 ### High
-- [ ] Show a clear error when `kizami` binary is not found, with a link to installation instructions
-- [ ] Right-click context menu on files: "Find related kizami documents"
+- [x] Show a clear error when `kizami` binary is not found, with a link to installation instructions
+- [x] Right-click context menu on files: "Find related kizami documents"
 
 ### Medium
 - [ ] Refresh button in the TreeView title bar
