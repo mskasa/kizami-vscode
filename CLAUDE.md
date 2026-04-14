@@ -111,7 +111,6 @@ go build -o ~/go/bin/kizami .
 - [x] `kizami.binaryPath` configuration setting
 
 ### Known Limitations
-- Japanese (`ja/`) versions of documents appear alongside English versions — no deduplication or grouping
 - No loading indicator during subprocess execution
 - No error surfaced when `kizami` binary is not found (shows generic error message)
 
@@ -120,7 +119,6 @@ go build -o ~/go/bin/kizami .
 ## Backlog
 
 ### High
-- [ ] Filter or group `ja/` documents — show language variants separately or under a collapsible group
 - [ ] Show a clear error when `kizami` binary is not found, with a link to installation instructions
 - [ ] Right-click context menu on files: "Find related kizami documents"
 
