@@ -43,6 +43,12 @@
         "command": "kizami.openInstallGuide",
         "title": "Open kizami Install Guide",
         "category": "kizami"
+      },
+      {
+        "command": "kizami.refresh",
+        "title": "Refresh",
+        "category": "kizami",
+        "icon": "$(refresh)"
       }
     ],
     "menus": {
@@ -50,6 +56,13 @@
         {
           "command": "kizami.findRelated",
           "when": "kizami.active && resourceScheme == file && !explorerResourceIsFolder",
+          "group": "navigation"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "kizami.refresh",
+          "when": "view == kizamiDocuments",
           "group": "navigation"
         }
       ]
