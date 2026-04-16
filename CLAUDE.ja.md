@@ -124,8 +124,6 @@ go build -o ~/go/bin/kizami .
 
 ### 優先度：中
 - [x] TreeView タイトルバーの更新ボタン
-- [ ] `kizami list` ビュー — ワークスペース内の全ドキュメントを一覧する 2 つ目の TreeView タブ
-- [ ] `en` または `ja` ドキュメントを優先する `kizami.language` 設定
 
 ### 優先度：低
 - [ ] VS Code Marketplace へのパッケージングと公開
