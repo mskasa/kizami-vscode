@@ -49,6 +49,11 @@
         "title": "Refresh",
         "category": "kizami",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "kizami.openDocumentInEditor",
+        "title": "Open in Editor",
+        "category": "kizami"
       }
     ],
     "menus": {
@@ -63,6 +68,13 @@
         {
           "command": "kizami.refresh",
           "when": "view == kizamiDocuments",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "kizami.openDocumentInEditor",
+          "when": "view == kizamiDocuments && viewItem == kizamiDocument",
           "group": "navigation"
         }
       ]
