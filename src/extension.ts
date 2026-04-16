@@ -10,10 +10,15 @@ export function activate(context: vscode.ExtensionContext): void {
 
   vscode.commands.executeCommand("setContext", "kizami.active", true);
 
-  // Refresh when the active editor changes.
+  // Refresh when the active editor changes, debounced to avoid firing on
+  // every file in a rapid switch sequence.
+  let debounceTimer: ReturnType<typeof setTimeout> | undefined;
   context.subscriptions.push(
     vscode.window.onDidChangeActiveTextEditor((editor) => {
-      provider.refresh(editor?.document.uri.fsPath);
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        provider.refresh(editor?.document.uri.fsPath);
+      }, 250);
     })
   );
 
@@ -56,6 +61,15 @@ export function activate(context: vscode.ExtensionContext): void {
       (uri: vscode.Uri) => {
         provider.refresh(uri.fsPath);
         vscode.commands.executeCommand("kizamiDocuments.focus");
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "kizami.openDocumentInEditor",
+      (filePath: string) => {
+        vscode.window.showTextDocument(vscode.Uri.file(filePath));
       }
     )
   );
