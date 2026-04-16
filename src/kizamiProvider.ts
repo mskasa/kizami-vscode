@@ -47,6 +47,11 @@ export class KizamiDocumentsProvider
     new vscode.EventEmitter<vscode.TreeItem | undefined | null | void>();
   readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
 
+  // Fires with the document count after each getChildren() call.
+  // undefined means the count is not applicable (no workspace / no file open).
+  private _onDidUpdateCount = new vscode.EventEmitter<number | undefined>();
+  readonly onDidUpdateCount = this._onDidUpdateCount.event;
+
   private currentFilePath: string | undefined;
 
   refresh(filePath: string | undefined): void {
@@ -66,16 +71,21 @@ export class KizamiDocumentsProvider
     }
 
     if (!this.currentFilePath) {
+      this._onDidUpdateCount.fire(undefined);
       return [new MessageItem("No file open")];
     }
 
     // Only run blame for files inside a kizami workspace.
     const workspaceRoot = findWorkspaceRoot(this.currentFilePath);
     if (!workspaceRoot) {
+      this._onDidUpdateCount.fire(undefined);
       return [new MessageItem("No kizami.toml found")];
     }
 
-    return this.runBlame(workspaceRoot, this.currentFilePath);
+    const items = await this.runBlame(workspaceRoot, this.currentFilePath);
+    const count = items.filter((i) => i.contextValue === "kizamiDocument").length;
+    this._onDidUpdateCount.fire(count);
+    return items;
   }
 
   private async runBlame(

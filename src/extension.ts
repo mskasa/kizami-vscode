@@ -10,6 +10,25 @@ export function activate(context: vscode.ExtensionContext): void {
 
   vscode.commands.executeCommand("setContext", "kizami.active", true);
 
+  const statusBarItem = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Right,
+    100
+  );
+  statusBarItem.command = "kizamiDocuments.focus";
+  statusBarItem.tooltip = "Show related kizami documents";
+  context.subscriptions.push(statusBarItem);
+
+  context.subscriptions.push(
+    provider.onDidUpdateCount((count) => {
+      if (count === undefined) {
+        statusBarItem.hide();
+      } else {
+        statusBarItem.text = `$(book) ${count}`;
+        statusBarItem.show();
+      }
+    })
+  );
+
   // Refresh when the active editor changes.
   context.subscriptions.push(
     vscode.window.onDidChangeActiveTextEditor((editor) => {
