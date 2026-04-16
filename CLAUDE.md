@@ -124,7 +124,6 @@ go build -o ~/go/bin/kizami .
 
 ### Medium
 - [x] Refresh button in the TreeView title bar
-- [ ] Status bar item showing related document count for the current file
 - [ ] `kizami list` view — second TreeView tab listing all documents in the workspace
 - [ ] `kizami.language` setting to prefer `en` or `ja` documents
 
