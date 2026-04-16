@@ -123,7 +123,7 @@ go build -o ~/go/bin/kizami .
 - [x] ファイルの右クリックコンテキストメニュー: "Find related kizami documents"
 
 ### 優先度：中
-- [ ] TreeView タイトルバーの更新ボタン
+- [x] TreeView タイトルバーの更新ボタン
 - [ ] 現在のファイルの関連ドキュメント数を表示するステータスバーアイテム
 - [ ] `kizami list` ビュー — ワークスペース内の全ドキュメントを一覧する 2 つ目の TreeView タブ
 - [ ] `en` または `ja` ドキュメントを優先する `kizami.language` 設定
