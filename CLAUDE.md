@@ -112,7 +112,6 @@ go build -o ~/go/bin/kizami .
 
 ### Known Limitations
 - No loading indicator during subprocess execution
-- No error surfaced when `kizami` binary is not found (shows generic error message)
 
 ---
 
