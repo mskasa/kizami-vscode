@@ -1,0 +1,12 @@
+.vscode/**
+.claude/**
+src/**
+out/test/**
+node_modules/**
+*.vsix
+*.map
+.gitignore
+tsconfig.json
+CLAUDE.md
+CLAUDE.ja.md
+package-lock.json
