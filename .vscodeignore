@@ -6,7 +6,6 @@ node_modules/**
 *.vsix
 **/*.map
 .gitignore
-media/kizami-icon.svg
 tsconfig.json
 CLAUDE.md
 CLAUDE.ja.md
