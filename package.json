@@ -10,6 +10,19 @@
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "kizami",
+    "adr",
+    "architecture decision record",
+    "documentation",
+    "blame"
+  ],
+  "icon": "media/kizami.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mskasa/kizami-vscode.git"
+  },
+  "license": "MIT",
   "activationEvents": [
     "workspaceContains:kizami.toml"
   ],
@@ -20,7 +33,7 @@
         {
           "id": "kizami",
           "title": "kizami",
-          "icon": "media/kizami.svg"
+          "icon": "media/kizami-icon.svg"
         }
       ]
     },
@@ -101,11 +114,13 @@
   "devDependencies": {
     "@types/mocha": "^10.0.10",
     "@types/node": "^20.0.0",
+    "@types/sharp": "^0.32.0",
     "@types/vscode": "^1.85.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.0",
     "mocha": "^11.7.5",
+    "sharp": "^0.34.5",
     "typescript": "^5.3.0"
   }
 }
