@@ -126,7 +126,7 @@ go build -o ~/go/bin/kizami .
 - [x] TreeView タイトルバーの更新ボタン
 
 ### 優先度：低
-- [ ] VS Code Marketplace へのパッケージングと公開
+- [x] VS Code Marketplace へのパッケージングと公開
 - [ ] CI ワークフロー（プッシュ時の lint + コンパイルチェック）
 
 ---

@@ -125,7 +125,7 @@ go build -o ~/go/bin/kizami .
 - [x] Refresh button in the TreeView title bar
 
 ### Low
-- [ ] Package and publish to VS Code Marketplace
+- [x] Package and publish to VS Code Marketplace
 - [ ] CI workflow (lint + compile check on push)
 
 ---
