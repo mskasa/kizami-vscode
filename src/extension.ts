@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { KizamiDocumentsProvider } from "./kizamiProvider";
+import { KizamiDocumentsProvider, DocumentItem } from "./kizamiProvider";
 
 export function activate(context: vscode.ExtensionContext): void {
   const provider = new KizamiDocumentsProvider();
@@ -68,8 +68,8 @@ export function activate(context: vscode.ExtensionContext): void {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "kizami.openDocumentInEditor",
-      (filePath: string) => {
-        vscode.window.showTextDocument(vscode.Uri.file(filePath));
+      (item: DocumentItem) => {
+        vscode.window.showTextDocument(vscode.Uri.file(item.filePath));
       }
     )
   );
