@@ -24,6 +24,35 @@ Path: /workspace/docs/adr/0001-ripgrep.md
     assert.strictEqual(entries[0].status, "Active");
     assert.strictEqual(entries[0].title, "Use ripgrep fallback strategy");
     assert.strictEqual(entries[0].filePath, "/workspace/docs/adr/0001-ripgrep.md");
+    assert.strictEqual(entries[0].excerpt, "");
+  });
+
+  it("parses Decision line into excerpt", () => {
+    const stdout = `
+Found 1 decision(s) mentioning "src/foo.ts":
+
+[use-ripgrep] 2026-03-12 | Active
+Title: Use ripgrep fallback strategy
+Decision: We adopt ripgrep as the default search backend.
+Path: /workspace/docs/adr/use-ripgrep.md
+
+`;
+    const entries = parseBlameOutput(stdout);
+    assert.strictEqual(entries.length, 1);
+    assert.strictEqual(entries[0].excerpt, "We adopt ripgrep as the default search backend.");
+    assert.strictEqual(entries[0].filePath, "/workspace/docs/adr/use-ripgrep.md");
+  });
+
+  it("handles non-numeric slug in header", () => {
+    const stdout = `
+[use-ripgrep] 2026-03-12 | Active
+Title: Slug decision
+Path: /workspace/docs/adr/use-ripgrep.md
+
+`;
+    const entries = parseBlameOutput(stdout);
+    assert.strictEqual(entries.length, 1);
+    assert.strictEqual(entries[0].title, "Slug decision");
   });
 
   it("parses multiple entries", () => {
