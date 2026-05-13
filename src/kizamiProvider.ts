@@ -7,12 +7,10 @@ import { BlameEntry, parseBlameOutput, findWorkspaceRoot } from "./utils";
 export class DocumentItem extends vscode.TreeItem {
   constructor(
     label: string,
-    public readonly filePath: string,
-    excerpt: string
+    public readonly filePath: string
   ) {
     super(label, vscode.TreeItemCollapsibleState.None);
 
-    this.description = excerpt;
     this.tooltip = filePath;
     this.resourceUri = vscode.Uri.file(filePath);
     this.command = {
@@ -137,7 +135,7 @@ export class KizamiDocumentsProvider
             const absPath = path.isAbsolute(e.filePath)
               ? e.filePath
               : path.join(workspaceRoot, e.filePath);
-            return new DocumentItem(e.title || path.basename(absPath, ".md"), absPath, e.excerpt);
+            return new DocumentItem(e.title || path.basename(absPath, ".md"), absPath);
           });
           resolve(items);
         }

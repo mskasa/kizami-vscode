@@ -6,7 +6,6 @@ export interface BlameEntry {
   date: string;
   status: string;
   filePath: string;
-  excerpt: string;
 }
 
 // Parse `kizami blame` stdout into BlameEntry list.
@@ -35,16 +34,13 @@ export function parseBlameOutput(stdout: string): BlameEntry[] {
       const status = headerMatch[2].trim();
       let title = "";
       let filePath = "";
-      let excerpt = "";
 
-      // Read following "Title:", "Decision:", and "Path:" lines.
+      // Read following "Title:" and "Path:" lines.
       i++;
       while (i < lines.length) {
         const sub = lines[i].trim();
         if (sub.startsWith("Title: ")) {
           title = sub.slice("Title: ".length);
-        } else if (sub.startsWith("Decision: ")) {
-          excerpt = sub.slice("Decision: ".length);
         } else if (sub.startsWith("Path: ")) {
           filePath = sub.slice("Path: ".length);
         } else if (sub === "" && filePath !== "") {
@@ -55,7 +51,7 @@ export function parseBlameOutput(stdout: string): BlameEntry[] {
       }
 
       if (filePath) {
-        entries.push({ title, date, status, filePath, excerpt });
+        entries.push({ title, date, status, filePath });
       }
       continue;
     }
