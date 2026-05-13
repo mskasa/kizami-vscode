@@ -8,12 +8,11 @@ export class DocumentItem extends vscode.TreeItem {
   constructor(
     label: string,
     public readonly filePath: string,
-    status: string,
-    date: string
+    excerpt: string
   ) {
     super(label, vscode.TreeItemCollapsibleState.None);
 
-    this.description = [status, date].filter(Boolean).join(" · ");
+    this.description = excerpt;
     this.tooltip = filePath;
     this.resourceUri = vscode.Uri.file(filePath);
     this.command = {
@@ -21,8 +20,7 @@ export class DocumentItem extends vscode.TreeItem {
       title: "Open Document",
       arguments: [filePath],
     };
-    const isActive = status.toLowerCase() === "active";
-    this.iconPath = new vscode.ThemeIcon(isActive ? "file-text" : "file");
+    this.iconPath = new vscode.ThemeIcon("file-text");
     this.contextValue = "kizamiDocument";
   }
 }
@@ -128,11 +126,18 @@ export class KizamiDocumentsProvider
             return;
           }
 
-          const items = entries.map((e) => {
+          const activeEntries = entries.filter(
+            (e) => e.status.toLowerCase() === "active"
+          );
+          if (activeEntries.length === 0) {
+            resolve([new MessageItem("No related documents")]);
+            return;
+          }
+          const items = activeEntries.map((e) => {
             const absPath = path.isAbsolute(e.filePath)
               ? e.filePath
               : path.join(workspaceRoot, e.filePath);
-            return new DocumentItem(e.title || path.basename(absPath, ".md"), absPath, e.status, e.date);
+            return new DocumentItem(e.title || path.basename(absPath, ".md"), absPath, e.excerpt);
           });
           resolve(items);
         }

@@ -6,6 +6,7 @@ export interface BlameEntry {
   date: string;
   status: string;
   filePath: string;
+  excerpt: string;
 }
 
 // Parse `kizami blame` stdout into BlameEntry list.
@@ -25,22 +26,25 @@ export function parseBlameOutput(stdout: string): BlameEntry[] {
   while (i < lines.length) {
     const line = lines[i].trim();
 
-    // Header line: [NNNN] YYYY-MM-DD | Status  OR  YYYY-MM-DD | Status
+    // Header line: [slug] YYYY-MM-DD | Status  OR  YYYY-MM-DD | Status
     const headerMatch = line.match(
-      /^(?:\[\d+\]\s+)?(\d{4}-\d{2}-\d{2})\s+\|\s+(.+)$/
+      /^(?:\[.*?\]\s+)?(\d{4}-\d{2}-\d{2})\s+\|\s+(.+)$/
     );
     if (headerMatch) {
       const date = headerMatch[1];
       const status = headerMatch[2].trim();
       let title = "";
       let filePath = "";
+      let excerpt = "";
 
-      // Read following "Title:" and "Path:" lines.
+      // Read following "Title:", "Decision:", and "Path:" lines.
       i++;
       while (i < lines.length) {
         const sub = lines[i].trim();
         if (sub.startsWith("Title: ")) {
           title = sub.slice("Title: ".length);
+        } else if (sub.startsWith("Decision: ")) {
+          excerpt = sub.slice("Decision: ".length);
         } else if (sub.startsWith("Path: ")) {
           filePath = sub.slice("Path: ".length);
         } else if (sub === "" && filePath !== "") {
@@ -51,7 +55,7 @@ export function parseBlameOutput(stdout: string): BlameEntry[] {
       }
 
       if (filePath) {
-        entries.push({ title, date, status, filePath });
+        entries.push({ title, date, status, filePath, excerpt });
       }
       continue;
     }
