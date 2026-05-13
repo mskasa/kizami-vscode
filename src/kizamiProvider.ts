@@ -135,7 +135,11 @@ export class KizamiDocumentsProvider
             const absPath = path.isAbsolute(e.filePath)
               ? e.filePath
               : path.join(workspaceRoot, e.filePath);
-            return new DocumentItem(e.title || path.basename(absPath, ".md"), absPath);
+            // For sidecar files, open the managed file instead of the .kizami metadata file.
+            const openPath = absPath.endsWith(".kizami")
+              ? absPath.slice(0, -".kizami".length)
+              : absPath;
+            return new DocumentItem(e.title || path.basename(openPath), openPath);
           });
           resolve(items);
         }
