@@ -25,12 +25,12 @@ export function parseBlameOutput(stdout: string): BlameEntry[] {
   while (i < lines.length) {
     const line = lines[i].trim();
 
-    // Header line: [slug] YYYY-MM-DD | Status  OR  YYYY-MM-DD | Status
+    // Header line: [slug] YYYY-MM-DD | Status  OR  YYYY-MM-DD | Status  OR  [slug] | Status (no date)
     const headerMatch = line.match(
-      /^(?:\[.*?\]\s+)?(\d{4}-\d{2}-\d{2})\s+\|\s+(.+)$/
+      /^(?:\[.*?\]\s+)?(\d{4}-\d{2}-\d{2})?\s*\|\s+(.+)$/
     );
     if (headerMatch) {
-      const date = headerMatch[1];
+      const date = headerMatch[1] ?? "";
       const status = headerMatch[2].trim();
       let title = "";
       let filePath = "";

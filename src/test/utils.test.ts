@@ -89,6 +89,21 @@ Path: /workspace/docs/adr/0001.md
     assert.strictEqual(entries.length, 1);
     assert.strictEqual(entries[0].title, "No index prefix");
   });
+
+  it("handles header without date", () => {
+    const stdout = `
+[1-release-target]  | Active
+Title: Release Target
+Path: /workspace/docs/design/flow/1-release-target.md
+
+`;
+    const entries = parseBlameOutput(stdout);
+    assert.strictEqual(entries.length, 1);
+    assert.strictEqual(entries[0].date, "");
+    assert.strictEqual(entries[0].status, "Active");
+    assert.strictEqual(entries[0].title, "Release Target");
+    assert.strictEqual(entries[0].filePath, "/workspace/docs/design/flow/1-release-target.md");
+  });
 });
 
 // ---------------------------------------------------------------------------
