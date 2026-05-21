@@ -2,7 +2,7 @@
   "name": "kizami-vscode",
   "displayName": "kizami",
   "description": "Living documentation sidebar for kizami — shows related ADRs and design docs for the current file",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "publisher": "mskasa",
   "engines": {
     "vscode": "^1.85.0"
